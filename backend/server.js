@@ -96,7 +96,7 @@ const path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
 
 // Catch-all: send index.html for any non-API route (React Router support)
-app.get("*", (req, res) => {
+app.get("(.*)", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
