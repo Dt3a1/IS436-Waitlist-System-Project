@@ -78,6 +78,9 @@ export default function CustomerReservationPage({ goToEmployeeLogin }) {
     if (!form.requested_reservation_time) {
       nextErrors.requested_reservation_time =
         "Reservation date and time are required.";
+    } else if (new Date(form.requested_reservation_time) < new Date()) {
+      nextErrors.requested_reservation_time =
+        "Reservation date and time cannot be in the past.";
     }
 
     setFieldErrors(nextErrors);
