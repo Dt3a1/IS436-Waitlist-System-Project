@@ -75,6 +75,11 @@ export default function CustomerReservationPage({ goToEmployeeLogin }) {
       nextErrors.party_size = "Party size must be at least 1.";
     }
 
+    if (!form.requested_reservation_time) {
+      nextErrors.requested_reservation_time =
+        "Reservation date and time are required.";
+    }
+
     setFieldErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
@@ -528,6 +533,11 @@ export default function CustomerReservationPage({ goToEmployeeLogin }) {
                       updateForm("requested_reservation_time", e.target.value)
                     }
                   />
+                  {fieldErrors.requested_reservation_time && (
+                    <div className="text-danger mt-1">
+                      {fieldErrors.requested_reservation_time}
+                    </div>
+                  )}
                 </div>
 
                 <div className="col-12">
