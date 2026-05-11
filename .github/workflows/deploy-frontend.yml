@@ -1,0 +1,16 @@
+name: Deploy Frontend Static Site
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "frontend/**"
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Render frontend deploy
+        run: curl -X POST "${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK_URL }}"
