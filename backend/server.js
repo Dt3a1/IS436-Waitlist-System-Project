@@ -53,11 +53,11 @@ setSocketServer(io);
 /**
  * Basic backend test route.
  */
-app.get("/", (req, res) => {
-  res.json({
-    message: "Waitlist backend is running",
-  });
-});
+// app.get("/", (req, res) => {
+//   res.json({
+//     message: "Waitlist backend is running",
+//   });
+// });
 
 /**
  * Health check route.
