@@ -1,0 +1,34 @@
+name: Build and Push Backend Docker Image
+
+# This workflow runs every time code is pushed to the main branch.
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    # GitHub will run this job on a temporary Ubuntu machine.
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Download the code from your GitHub repository.
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Step 2: Log in to Docker Hub using the secrets you already added.
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Step 3: Build the backend Docker image from backend/Dockerfile
+      # and push it to Docker Hub with the tag "latest".
+      - name: Build and push backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          push: true
+          tags: szhang2304/waitlist-backend:latest
