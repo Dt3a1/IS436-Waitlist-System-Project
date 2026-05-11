@@ -61,7 +61,7 @@ export default function LoginPage({ onLogin }) {
           <div className="customer-brand-mark">
             <i className="bi bi-brightness-high"></i>
           </div>
-          <h1>Sunset Cafe</h1>
+          <h1>Sunset Tea</h1>
           <p>GOOD FOOD. GOOD COFFEE. GOOD TIMES.</p>
         </div>
 
