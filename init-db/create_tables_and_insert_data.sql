@@ -1,3 +1,4 @@
+CREATE DATABASE IF NOT EXISTS waitlist_db;
 USE waitlist_db;
 
 DROP TABLE IF EXISTS waitlist_log;
