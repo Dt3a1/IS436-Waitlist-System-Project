@@ -23,7 +23,14 @@ const PORT = process.env.PORT || 5000;
  * cors allows the React frontend to talk to this backend.
  * express.json allows the backend to read JSON request bodies.
  */
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      process.env.FRONTEND_URL,
+    ],
+  })
+);
 app.use(express.json());
 
 /**
@@ -32,7 +39,10 @@ app.use(express.json());
  */
 const io = new Server(server, {
   cors: {
-    origin: "*",   // or set process.env.FRONTEND_URL for tighter security
+    origin: [
+      "http://localhost:5173",
+      process.env.FRONTEND_URL,
+    ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   },
 });
