@@ -67,6 +67,14 @@ export default function App() {
     setView("customer");
   }
 
+  function handleAuthExpired() {
+    localStorage.removeItem("staff");
+    localStorage.removeItem("token");
+
+    setStaff(null);
+    setView("login");
+  }
+
   /**
    * Customer-facing reservation page.
    */
@@ -92,6 +100,7 @@ export default function App() {
     <DashboardPage
       staff={staff}
       onLogout={handleLogout}
+      onAuthExpired={handleAuthExpired}
       goToReservationPage={() => setView("customer")}
     />
   );

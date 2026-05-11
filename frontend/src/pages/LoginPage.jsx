@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { API_URL } from "../api";
+import sunsetCafeBg from "../assets/sunset-cafe.webp";
 
 /**
  * Employee login page.
@@ -50,39 +51,55 @@ export default function LoginPage({ onLogin }) {
   }
 
   return (
-    <div className="login-page">
-      <div className="login-card shadow">
-        <h1 className="text-center mb-2">Sunset Tea</h1>
-        <p className="text-center text-muted mb-4">Employee Waitlist Login</p>
-
-        {error && <div className="alert alert-danger">{error}</div>}
-
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label className="form-label">Username</label>
-            <input
-              className="form-control"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+    <div
+      className="login-page customer-page"
+      style={{ backgroundImage: `url(${sunsetCafeBg})` }}
+    >
+      <div className="customer-overlay login-overlay"></div>
+      <div className="login-content customer-content">
+        <div className="customer-topbar">
+          <div className="customer-brand-mark">
+            <i className="bi bi-brightness-high"></i>
           </div>
+          <h1>Sunset Cafe</h1>
+          <p>GOOD FOOD. GOOD COFFEE. GOOD TIMES.</p>
+        </div>
 
-          <div className="mb-4">
-            <label className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+        <div className="login-card customer-card shadow-lg mx-auto">
+          <h2 className="text-center mb-2">Employee Login</h2>
+          <p className="text-center customer-subtitle mb-4">
+            Waitlist Management
+          </p>
 
-          <button className="btn btn-primary w-100" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
+          {error && <div className="alert alert-danger">{error}</div>}
+
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label">Username</label>
+              <input
+                className="form-control customer-input"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="form-label">Password</label>
+              <input
+                type="password"
+                className="form-control customer-input"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <button className="btn customer-main-btn w-100" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

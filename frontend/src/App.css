@@ -18,10 +18,18 @@ body {
 
 .login-card {
   width: 100%;
-  max-width: 430px;
+  max-width: 520px;
   background: white;
   border-radius: 18px;
   padding: 35px;
+}
+
+.login-overlay {
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 146, 49, 0.12),
+    rgba(17, 6, 1, 0.74)
+  );
 }
 
 /* Dashboard Layout */

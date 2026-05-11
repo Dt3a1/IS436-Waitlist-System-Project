@@ -12,7 +12,12 @@ import CustomersPage from "./CustomersPage";
  * Main dashboard layout.
  * This component controls the active sidebar page and loads shared data.
  */
-export default function DashboardPage({ staff, onLogout, goToReservationPage }) {
+export default function DashboardPage({
+  staff,
+  onLogout,
+  onAuthExpired,
+  goToReservationPage,
+}) {
   const [activePage, setActivePage] = useState("waitlist");
 
   const [reservations, setReservations] = useState([]);
@@ -27,6 +32,18 @@ export default function DashboardPage({ staff, onLogout, goToReservationPage }) 
   const [loadingLogs, setLoadingLogs] = useState(false);
   const [loadingNotifications, setLoadingNotifications] = useState(false);
   const [loadingCustomers, setLoadingCustomers] = useState(false);
+
+  function handleLoadError(err) {
+    if (
+      err.message === "Invalid or expired token" ||
+      err.message === "Access token is required"
+    ) {
+      onAuthExpired();
+      return;
+    }
+
+    setError(err.message);
+  }
 
   /**
    * Loads active waitlist entries from the backend.
@@ -48,7 +65,7 @@ export default function DashboardPage({ staff, onLogout, goToReservationPage }) 
 
       setReservations(data);
     } catch (err) {
-      setError(err.message);
+      handleLoadError(err);
     } finally {
       setLoadingWaitlist(false);
     }
@@ -74,7 +91,7 @@ export default function DashboardPage({ staff, onLogout, goToReservationPage }) 
 
       setLogs(data);
     } catch (err) {
-      setError(err.message);
+      handleLoadError(err);
     } finally {
       setLoadingLogs(false);
     }
@@ -100,7 +117,7 @@ export default function DashboardPage({ staff, onLogout, goToReservationPage }) 
 
       setNotifications(data);
     } catch (err) {
-      setError(err.message);
+      handleLoadError(err);
     } finally {
       setLoadingNotifications(false);
     }
@@ -126,7 +143,7 @@ async function loadCustomers() {
 
     setCustomers(data);
   } catch (err) {
-    setError(err.message);
+    handleLoadError(err);
   } finally {
     setLoadingCustomers(false);
   }
