@@ -53,15 +53,15 @@ setSocketServer(io);
 /**
  * Basic backend test route.
  */
-// app.get("/", (req, res) => {
-//   res.json({
-//     message: "Waitlist backend is running",
-//   });
-// });
+app.get("/", (req, res) => {
+  res.json({
+    message: "Waitlist backend is running",
+  });
+});
 
 /**
  * Health check route.
- * This confirms the backend can connect to MySQL.
+ * Confirms the backend can connect to MySQL.
  */
 app.get("/api/health", async (req, res) => {
   try {
