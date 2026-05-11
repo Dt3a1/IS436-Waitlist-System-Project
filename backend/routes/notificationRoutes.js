@@ -1,6 +1,7 @@
 const express = require("express");
 const pool = require("../db");
 const authenticateToken = require("../middleware/authMiddleware");
+const { formatTimestampForEastern } = require("../utils/time");
 
 const router = express.Router();
 
@@ -31,7 +32,12 @@ router.get("/", authenticateToken, async (req, res) => {
       ORDER BY n.sent_at DESC;
     `);
 
-    res.json(rows);
+    res.json(
+      rows.map((row) => ({
+        ...row,
+        sent_at: formatTimestampForEastern(row.sent_at),
+      }))
+    );
   } catch (error) {
     console.error("Error fetching notifications:", error);
 

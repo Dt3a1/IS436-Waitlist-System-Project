@@ -1,6 +1,7 @@
 const express = require("express");
 const pool = require("../db");
 const authenticateToken = require("../middleware/authMiddleware");
+const { formatTimestampForEastern } = require("../utils/time");
 
 const router = express.Router();
 
@@ -30,7 +31,12 @@ router.get("/", authenticateToken, async (req, res) => {
       ORDER BY wl.occurrence_time DESC;
     `);
 
-    res.json(rows);
+    res.json(
+      rows.map((row) => ({
+        ...row,
+        occurrence_time: formatTimestampForEastern(row.occurrence_time),
+      }))
+    );
   } catch (error) {
     console.error("Error fetching logs:", error);
 
