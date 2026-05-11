@@ -170,12 +170,27 @@ The application includes buttons allowing both customers and employees to remove
 ---
 
 # Technologies Used
+Frontend
+- React: Frontend JavaScript library used to build the customer-facing page and admin dashboard UI.
+- Vite: Development/build tool for the React frontend. It runs the local frontend server and creates the production build.
+- Bootstrap: CSS framework used for layout, forms, buttons, tables, cards, and responsive styling.
 
-- Web-based Application
-- Mailjet Email API
-- Database Management System
-- Multi-Factor Authentication
-- Responsive User Interface
+Backend
+- Node.js: JavaScript runtime used to run the backend server.
+- Express.js: Backend web framework used to create API routes for login, waitlist, customers, logs, notifications, and customer reservations.
+- MySQL: Relational database used to store staff, customers, waitlist entries, statuses, notifications, and logs.
+
+JavaScript Libraries
+- Socket.IO: Real-time communication library used to automatically update the admin queue across multiple open dashboards.
+- JWT / JSON Web Token: Authentication method used to protect admin-only backend routes after an employee logs in.
+- bcryptjs: Password hashing library used to securely compare employee passwords with hashed passwords stored in MySQL.
+
+APIs
+- Mailjet API: Email service used to send customer notification emails when their table is ready.
+
+Deployment
+- Aiven: Cloud based data platform that hosts and manages the MySQL database used in this application.
+- Render: Cloud deployment platform planned for hosting the backend and frontend. Did not use Render for MySQL because that was not a free feature of Render.
 
 ---
 
