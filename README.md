@@ -48,7 +48,6 @@ The system logs customer visits to provide useful data regarding:
 ## Security
 The application supports secure employee account access using:
 - Username/password authentication
-- Multi-factor verification
 
 ---
 
