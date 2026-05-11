@@ -16,7 +16,7 @@ const { setSocketServer } = require("./socket");
 const app = express();
 const server = http.createServer(app);
 
-const PORT = process.env.PORT || 5055;
+const PORT = process.env.PORT || 5000;
 
 /**
  * Middleware
@@ -90,15 +90,6 @@ app.use("/api/logs", logRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/customer/reservations", customerReservationRoutes);
-
-// Serve React frontend static files
-const path = require("path");
-app.use(express.static(path.join(__dirname, "public")));
-
-// Catch-all: send index.html for any non-API route (React Router support)
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
 
 /**
  * Start backend server.
