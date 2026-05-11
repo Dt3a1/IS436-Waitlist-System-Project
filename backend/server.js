@@ -32,7 +32,7 @@ app.use(express.json());
  */
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:5173"],
+    origin: "*",   // or set process.env.FRONTEND_URL for tighter security
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   },
 });
@@ -90,6 +90,15 @@ app.use("/api/logs", logRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/customer/reservations", customerReservationRoutes);
+
+// Serve React frontend static files
+const path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
+
+// Catch-all: send index.html for any non-API route (React Router support)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 /**
  * Start backend server.
