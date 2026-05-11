@@ -40,6 +40,17 @@ export default function CustomerReservationPage({ goToEmployeeLogin }) {
     setFieldErrors((prev) => ({ ...prev, [field]: "" }));
   }
 
+  function getCurrentDateTimeValue() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const hour = String(now.getHours()).padStart(2, "0");
+    const minute = String(now.getMinutes()).padStart(2, "0");
+
+    return `${year}-${month}-${day}T${hour}:${minute}`;
+  }
+
   function updateLookup(field, value) {
     setLookup({
       ...lookup,
@@ -190,6 +201,10 @@ export default function CustomerReservationPage({ goToEmployeeLogin }) {
         throw new Error(data.message || "Failed to find reservation.");
       }
 
+      const reservationDateTime = formatDateTimeForInput(
+        data.requested_reservation_time
+      );
+
       setForm({
         first_name: data.first_name || "",
         last_name: data.last_name || "",
@@ -197,9 +212,7 @@ export default function CustomerReservationPage({ goToEmployeeLogin }) {
         email: data.email || "",
         preferred_contact_method: data.preferred_contact_method || "Email",
         party_size: data.party_size || 1,
-        requested_reservation_time: formatDateTimeForInput(
-          data.requested_reservation_time
-        ),
+        requested_reservation_time: reservationDateTime,
         notes: data.notes || "",
         entry_id: lookup.entry_id,
         reservation_code: lookup.reservation_code,
@@ -531,7 +544,10 @@ export default function CustomerReservationPage({ goToEmployeeLogin }) {
                   <input
                     type="datetime-local"
                     className="form-control customer-input"
+                    min={getCurrentDateTimeValue()}
                     value={form.requested_reservation_time}
+                    onClick={(e) => e.currentTarget.showPicker?.()}
+                    onFocus={(e) => e.currentTarget.showPicker?.()}
                     onChange={(e) =>
                       updateForm("requested_reservation_time", e.target.value)
                     }
